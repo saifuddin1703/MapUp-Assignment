@@ -4,6 +4,7 @@ const apiRoutes = require('./routes');
 const morgan = require('morgan');
 const errorHandler = require('./utils/errorHandler');
 const bodyparser = require('body-parser');
+const AppError = require('./utils/AppError');
 
 // loggin the api request on developement environment
 if(process.env.NODE_ENV === 'development'){
