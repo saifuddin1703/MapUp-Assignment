@@ -12,6 +12,10 @@ module.exports = {
             return next(new AppError('Please provide a long line string', 400));
         }
 
+        if(req.body.type !== 'LineString' || !req.body.coordinates){
+            return next(new AppError('Please provide a long line string', 400));
+        }
+
         const lineString = req.body;
 
         const line1 = turf.lineString(lineString.coordinates);
@@ -20,12 +24,9 @@ module.exports = {
         const intersections = [];
 
         lines.map((line,index) => {
-            // const line2 = turf.lineString(line.line.coordinates);
-            console.log(line1);
-            console.log(line.line);
+
             const intersection = turf.lineIntersect(line1.geometry, line.line);
-            console.log('intersection')
-            console.log(intersection)
+
             if(intersection.features.length > 0){
                 intersections.push({
                     id : index+1,
